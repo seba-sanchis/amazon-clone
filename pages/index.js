@@ -7,7 +7,7 @@ import banner from "@/sanity/schemas/banner";
 const Home = ({ products, bannerData }) => {
   return (
     <>
-      <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
+      {/* <HeroBanner heroBanner={bannerData.length && bannerData[0]} /> */}
       <div className="products-heading">
         <h2>Best Selling Products</h2>
         <p>Speakers of many variations</p>
@@ -17,7 +17,7 @@ const Home = ({ products, bannerData }) => {
           <Product key={product._id} product={product} />
         ))}
       </div>
-      <FooterBanner footerBanner={bannerData && bannerData[0]} />
+      {/* <FooterBanner footerBanner={bannerData && bannerData[0]} /> */}
     </>
   );
 };
