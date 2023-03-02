@@ -4,14 +4,10 @@ import { client } from "../lib/client";
 import { FooterBanner, HeroBanner, Product } from "../components/index";
 import banner from "@/sanity/schemas/banner";
 
-const Home = ({ products, bannerData }) => {
+const Home = ({ products }) => {
   return (
     <>
-      {/* <HeroBanner heroBanner={bannerData.length && bannerData[0]} /> */}
-      <div className="products-heading">
-        <h2>Best Selling Products</h2>
-        <p>Speakers of many variations</p>
-      </div>
+      <HeroBanner />
       <div className="products-container">
         {products?.map((product) => (
           <Product key={product._id} product={product} />

@@ -1,11 +1,6 @@
 import React, { useRef } from "react";
 import Link from "next/link";
-import {
-  AiOutlineMinus,
-  AiOutlinePlus,
-  AiOutlineLeft,
-  AiOutlineShopping,
-} from "react-icons/ai";
+import { AiOutlineClose, AiOutlineShopping } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
 import toast from "react-hot-toast";
 
@@ -47,20 +42,32 @@ const Cart = () => {
   return (
     <div className="cart-wrapper" ref={cartRef}>
       <div className="cart-container">
-        <button
-          type="button"
-          className="cart-heading"
-          onClick={() => setShowCart(false)}
-        >
-          <AiOutlineLeft />
-          <span className="heading">Your cart</span>
-          <span className="cart-num-items">{totalQuantities} items</span>
-        </button>
+        <div className="cart-heading">
+          <div className="cart-subtotal">
+            <span className="heading">Cart subtotal </span>
+            <span className="cart-num-items">({totalQuantities} items): </span>
+            <span className="cart-price">${totalPrice}</span>
+            <button
+              type="button"
+              className="cart-close"
+              onClick={() => setShowCart(false)}
+            >
+              <AiOutlineClose size="2rem" />
+            </button>
+          </div>
+          {cartItems.length >= 1 && (
+            <div className="btn-container">
+              <button type="button" className="btn" onClick={handleCheckout}>
+                Proceed to checkout ({totalQuantities} items)
+              </button>
+            </div>
+          )}
+        </div>
 
         {cartItems.length < 1 && (
           <div className="empty-cart">
+            <h1>Your shopping bag is empty</h1>
             <AiOutlineShopping size={150} />
-            <h3>Your shopping bag is empty</h3>
             <Link href="/">
               <button
                 type="button"
@@ -83,56 +90,53 @@ const Cart = () => {
                 />
                 <div className="item-desc">
                   <div className="flex top">
-                    <h5>{item.name}</h5>
-                    <h4>${item.price}</h4>
+                    <div className="item-name">{item.name}</div>
+                    <span className="item-text">Price: </span>
+                    <span className="price-symbol">$</span>
+                    <span className="item-price-whole">
+                      {item.price.toString().split(".")[0]}
+                    </span>
+                    <span className="item-price-fraction">
+                      {item.price.toString().split(".")[1]}
+                    </span>
                   </div>
                   <div className="flex bottom">
-                    <div>
-                      <p className="quantity-desc">
-                        <span
-                          className="minus"
-                          onClick={() =>
-                            toggleCartItemQuantity(item._id, "dec")
-                          }
-                        >
-                          <AiOutlineMinus />
-                        </span>
-                        <span className="num">{item.quantity}</span>
-                        <span
-                          className="plus"
-                          onClick={() =>
-                            toggleCartItemQuantity(item._id, "inc")
-                          }
-                        >
-                          <AiOutlinePlus />
-                        </span>
-                      </p>
-                    </div>
+                    <span className="quantity-desc">
+                      <label for="quantity">Qty:</label>
+                      <select
+                        value={item.quantity}
+                        onChange={(e) => {
+                          toggleCartItemQuantity(item, e.target.value);
+                        }}
+                        name="quantity"
+                        id="quantity"
+                        className="num"
+                      >
+                        <option value="0">0 (Delete)</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                      </select>
+                      <i className="icon-dropdown"></i>
+                    </span>
                     <button
                       type="button"
                       className="remove-item"
-                      onClick={() => onRemove(item)}
+                      onClick={() => toggleCartItemQuantity(item, 0)}
                     >
-                      <TiDeleteOutline />
+                      Delete
                     </button>
                   </div>
                 </div>
               </div>
             ))}
         </div>
-        {cartItems.length >= 1 && (
-          <div className="cart-bottom">
-            <div className="total">
-              <h3>Subtotal:</h3>
-              <h3>${totalPrice}</h3>
-            </div>
-            <div className="btn-container">
-              <button type="button" className="btn" onClick={handleCheckout}>
-                Pay with Stripe
-              </button>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

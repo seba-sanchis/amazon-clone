@@ -1,14 +1,9 @@
 import React from "react";
-import { AiFillInstagram, AiOutlineTwitter } from "react-icons/ai";
 
 const Footer = () => {
   return (
     <div className="footer-container">
-      <p>© 2023 E-commerce project from seba-sanchis</p>
-      <p className="icons">
-        <AiFillInstagram />
-        <AiOutlineTwitter />
-      </p>
+      <p>© 2023, e-commerce project from seba-sanchis</p>
     </div>
   );
 };
