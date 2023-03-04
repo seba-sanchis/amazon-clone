@@ -8,6 +8,8 @@ import { useStateContext } from "../context/StateContext";
 import { urlFor } from "../lib/client";
 import getStripe from "../lib/getStripe";
 
+const quantities = ["0 (Delete)", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
 const Cart = () => {
   const cartRef = useRef();
   const {
@@ -16,7 +18,8 @@ const Cart = () => {
     cartItems,
     setShowCart,
     toggleCartItemQuantity,
-    onRemove,
+    toggleSelectQuantity,
+    setToggleSelectQuantity,
   } = useStateContext();
 
   const handleCheckout = async () => {
@@ -101,30 +104,34 @@ const Cart = () => {
                     </span>
                   </div>
                   <div className="flex bottom">
-                    <span className="quantity-desc">
-                      <label for="quantity">Qty:</label>
-                      <select
-                        value={item.quantity}
-                        onChange={(e) => {
-                          toggleCartItemQuantity(item, e.target.value);
-                        }}
-                        name="quantity"
-                        id="quantity"
-                        className="num"
+                    <span>
+                      <span
+                        onClick={() => setToggleSelectQuantity((state) => !state)}
+                        className="quantity-desc"
                       >
-                        <option value="0">0 (Delete)</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                      </select>
-                      <i className="icon-dropdown"></i>
+                        <span>Qty:</span>
+                        <span>{item.quantity}</span>
+                        <i className="icon-dropdown"></i>
+                      </span>
+                      {toggleSelectQuantity && (
+                        <div className="dropdown">
+                          <ul>
+                            {quantities.map((element, index) => (
+                              <li
+                                key={index}
+                                onClick={() =>
+                                  toggleCartItemQuantity(item, index)
+                                }
+                                className={item.quantity === index ? "qty select" : "qty"}
+                              >
+                                {element}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </span>
+                    <i role="img" aria-label="|" className="text-separator"></i>
                     <button
                       type="button"
                       className="remove-item"
@@ -132,6 +139,7 @@ const Cart = () => {
                     >
                       Delete
                     </button>
+                    <i role="img" aria-label="|" className="text-separator"></i>
                   </div>
                 </div>
               </div>

@@ -10,6 +10,7 @@ export const StateContext = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
+  const [toggleSelectQuantity, setToggleSelectQuantity] = useState(false);
 
   let foundProduct;
   let index;
@@ -44,30 +45,45 @@ export const StateContext = ({ children }) => {
   };
 
   const toggleCartItemQuantity = (element, value) => {
+    
+    setToggleSelectQuantity(false);
+
     if (value > 0) {
       foundProduct = cartItems.find((item) => item._id === element._id);
       index = cartItems.findIndex((product) => product._id === element._id);
       const newCartItems = cartItems.filter((item) => item._id !== element._id);
 
-
       if (foundProduct.quantity < value) {
         let toAdd = parseFloat(value - foundProduct.quantity);
 
-        setTotalPrice((prevTotalPrice) => prevTotalPrice + (foundProduct.price * toAdd));
-        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + toAdd);
-        setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity = value }]);
-
+        setTotalPrice(
+          (prevTotalPrice) => prevTotalPrice + foundProduct.price * toAdd
+        );
+        setTotalQuantities(
+          (prevTotalQuantities) => prevTotalQuantities + toAdd
+        );
+        setCartItems([
+          ...newCartItems,
+          { ...foundProduct, quantity: (foundProduct.quantity = value) },
+        ]);
       } else if (foundProduct.quantity > value) {
-        let toRemove = parseFloat(foundProduct.quantity - value)
+        let toRemove = parseFloat(foundProduct.quantity - value);
 
-        setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity = value }]);
-        setTotalPrice((prevTotalPrice) => prevTotalPrice - (foundProduct.price * toRemove));
-        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - toRemove);
+        setCartItems([
+          ...newCartItems,
+          { ...foundProduct, quantity: (foundProduct.quantity = value) },
+        ]);
+        setTotalPrice(
+          (prevTotalPrice) => prevTotalPrice - foundProduct.price * toRemove
+        );
+        setTotalQuantities(
+          (prevTotalQuantities) => prevTotalQuantities - toRemove
+        );
       }
     } else {
       foundProduct = cartItems.find((item) => item._id === element._id);
       const newCartItems = cartItems.filter((item) => item._id !== element._id);
-  
+
       setTotalPrice(
         (prevTotalPrice) =>
           prevTotalPrice - foundProduct.price * foundProduct.quantity
@@ -93,6 +109,8 @@ export const StateContext = ({ children }) => {
         setCartItems,
         setTotalPrice,
         setTotalQuantities,
+        toggleSelectQuantity,
+        setToggleSelectQuantity,
       }}
     >
       {children}

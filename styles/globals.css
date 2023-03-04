@@ -382,7 +382,6 @@ span.text-red {
 }
 .item-desc .flex {
   display: flex;
-  justify-content: space-between;
   color: #007185;
 }
 .item-desc .top {
@@ -390,6 +389,7 @@ span.text-red {
 }
 .item-desc .bottom {
   margin-top: 12px;
+  align-items: center;
 }
 .item-name {
   font-size: 14px;
@@ -420,11 +420,22 @@ span.text-red {
   color: #0f1111;
 }
 .remove-item {
-  font-size: 24px;
-  color: #f02d34;
+  font-size: 12px;
+  line-height: 16px;
+  color: #007185;
   cursor: pointer;
   background: transparent;
   border: none;
+  vertical-align: middle;
+}
+.text-separator {
+  display: inline-block;
+  margin: -2px 0.67375em 0;
+  width: 1px;
+  background-color: #ddd;
+  line-height: 0;
+  height: 14px;
+  vertical-align: middle;
 }
 
 .btn-container {
@@ -559,6 +570,7 @@ span.text-red {
   transform: scale(1.1, 1.1);
 }
 .quantity-desc {
+  height: 29px;
   border: 1px solid #d5d9d9;
   border-radius: 8px;
   color: #0f1111;
@@ -571,19 +583,8 @@ span.text-red {
   padding: 0 26px 0 11px;
   position: relative;
 }
-.quantity-desc label {
+.quantity-desc span:first-child {
   margin-right: 6px;
-  font-size: 13px;
-  line-height: 29px;
-}
-.quantity-desc .num {
-  appearance: none;
-  border: none;
-  outline: none;
-  background: transparent;
-  width: 10px;
-  font-size: 13px;
-  line-height: 29px;
 }
 .icon-dropdown {
   background-image: url("../public/assets/material_02.png");
@@ -593,6 +594,31 @@ span.text-red {
   position: absolute;
   top: 10px;
   right: 8px;
+}
+.dropdown {
+  overflow: hidden;
+  border: 1px solid #bbbfbf;
+  border-color: #bbbfbf;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgb(15 17 17 / 15%);
+  background-color: #fff;
+  position: absolute;
+  padding: 8px 0;
+  color: #0f1111;
+}
+.qty {
+  padding: 2px 12px 1px 13px;
+  border: 1px solid transparent;
+}
+.qty:hover {
+  border-color: #d5d9d9;
+  background-color: #f0f2f2;
+  cursor: pointer;
+}
+.select {
+  border-color: #d5d9d9;
+  background-color: #edfdff;
+  border-left-color: #007185!important;
 }
 
 .maylike-products-wrapper {
