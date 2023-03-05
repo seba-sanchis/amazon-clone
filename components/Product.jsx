@@ -7,7 +7,7 @@ const Product = ({ product: { image, name, slug, price } }) => {
   return (
     <div>
       <div className="product-card">
-        <p className="product-name">{name}</p>
+        <p className="product-title">{name}</p>
         <div className="product-image-container">
           <Link href={`/product/${slug.current}`}>
             <img

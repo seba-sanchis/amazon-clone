@@ -4,6 +4,8 @@ import { toast } from "react-hot-toast";
 
 const Context = createContext();
 
+const quantityPerProduct = ["0 (Delete)", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
 export const StateContext = ({ children }) => {
   const [showCart, setShowCart] = useState(false);
   const [cartItems, setCartItems] = useState([]);
@@ -104,6 +106,7 @@ export const StateContext = ({ children }) => {
         totalPrice,
         totalQuantities,
         qty,
+        setQty,
         onAdd,
         toggleCartItemQuantity,
         setCartItems,
@@ -111,6 +114,7 @@ export const StateContext = ({ children }) => {
         setTotalQuantities,
         toggleSelectQuantity,
         setToggleSelectQuantity,
+        quantityPerProduct,
       }}
     >
       {children}

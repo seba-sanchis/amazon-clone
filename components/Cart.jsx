@@ -8,8 +8,6 @@ import { useStateContext } from "../context/StateContext";
 import { urlFor } from "../lib/client";
 import getStripe from "../lib/getStripe";
 
-const quantities = ["0 (Delete)", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
 const Cart = () => {
   const cartRef = useRef();
   const {
@@ -20,6 +18,7 @@ const Cart = () => {
     toggleCartItemQuantity,
     toggleSelectQuantity,
     setToggleSelectQuantity,
+    quantityPerProduct,
   } = useStateContext();
 
   const handleCheckout = async () => {
@@ -116,7 +115,7 @@ const Cart = () => {
                       {toggleSelectQuantity && (
                         <div className="dropdown">
                           <ul>
-                            {quantities.map((element, index) => (
+                            {quantityPerProduct.map((element, index) => (
                               <li
                                 key={index}
                                 onClick={() =>

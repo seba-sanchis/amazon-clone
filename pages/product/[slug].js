@@ -13,7 +13,15 @@ import { useStateContext } from "../../context/StateContext";
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
-  const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
+  const {
+    qty,
+    setQty,
+    onAdd,
+    setShowCart,
+    toggleSelectQuantity,
+    setToggleSelectQuantity,
+    quantityPerProduct,
+  } = useStateContext();
 
   const handleBuyNow = () => {
     onAdd(product, qty);
@@ -24,13 +32,7 @@ const ProductDetails = ({ product, products }) => {
   return (
     <div>
       <div className="product-detail-container">
-        <div>
-          <div className="image-container">
-            <img
-              src={urlFor(image && image[index])}
-              className="product-detail-image"
-            />
-          </div>
+        <div className="images-container">
           <div className="small-images-container">
             {image?.map((item, i) => (
               <img
@@ -43,9 +45,15 @@ const ProductDetails = ({ product, products }) => {
               />
             ))}
           </div>
+          <div className="big-image-container">
+            <img
+              src={urlFor(image && image[index])}
+              className="product-detail-image"
+            />
+          </div>
         </div>
         <div className="product-detail-desc">
-          <h1>{name}</h1>
+          <span className="product-name">{name}</span>
           <div className="reviews">
             <div>
               <AiFillStar />
@@ -54,23 +62,42 @@ const ProductDetails = ({ product, products }) => {
               <AiFillStar />
               <AiOutlineStar />
             </div>
-            <p>(20)</p>
+            <span class="">15 customer reviews</span>
           </div>
-          <h4>Details:</h4>
-          <p>{details}</p>
-          <p className="price">${price}</p>
-          <div className="quantity">
-            <h3>Quantity:</h3>
-            <p className="quantity-desc">
-              <span className="minus" onClick={decQty}>
-                <AiOutlineMinus />
-              </span>
-              <span className="num">{qty}</span>
-              <span className="plus" onClick={incQty}>
-                <AiOutlinePlus />
-              </span>
-            </p>
+
+          <hr class="divider"></hr>
+
+          <div>
+            <span className="product-tag">Price:</span>
+            <span className="price">${price}</span>
           </div>
+
+          <span>
+            <span
+              onClick={() => setToggleSelectQuantity((state) => !state)}
+              className="quantity-desc space"
+            >
+              <span>Qty:</span>
+              <span>{qty}</span>
+              <i className="icon-dropdown"></i>
+            </span>
+            {toggleSelectQuantity && (
+              <div className="dropdown">
+                <ul>
+                  {quantityPerProduct.map((element, index) => (
+                    <li
+                      key={index}
+                      onClick={() => setQty(index)}
+                      className={qty === index ? "qty select" : "qty"}
+                    >
+                      {element}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </span>
+
           <div className="buttons">
             <button
               type="button"
@@ -83,10 +110,18 @@ const ProductDetails = ({ product, products }) => {
               Buy now
             </button>
           </div>
+
+          <hr class="divider"></hr>
+
+          <h1>Details</h1>
+          <p>{details}</p>
         </div>
       </div>
+
+      <hr class="divider"></hr>
+
       <div className="maylike-products-wrapper">
-        <h2>You may also like</h2>
+        <h2>Customers also search</h2>
         <div className="marquee">
           <div className="maylike-products-container track">
             {products.map((item) => (

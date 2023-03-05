@@ -1,12 +1,15 @@
 import React from "react";
+import { useRouter } from 'next/router'
 import Head from "next/head";
 
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 const Layout = ({ children }) => {
+  const router = useRouter();
+
   return (
-    <div className="layout">
+    <div className={router.pathname === "/" ? "layout" : "product-bg"}>
       <Head>
         <title>e-commerce</title>
       </Head>
