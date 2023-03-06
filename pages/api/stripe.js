@@ -21,7 +21,8 @@ export default async function handler(req, res) {
               "image-",
               "https://cdn.sanity.io/images/2mguyyga/production/"
             )
-            .replace("-webp", ".webp").replace("-jpg", ".jpg");
+            .replace("-webp", ".webp")
+            .replace("-jpg", ".jpg");
 
           return {
             price_data: {
