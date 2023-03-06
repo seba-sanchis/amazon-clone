@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import Link from "next/link";
 import { AiOutlineClose, AiOutlineShopping } from "react-icons/ai";
-import { TiDeleteOutline } from "react-icons/ti";
 import toast from "react-hot-toast";
 
 import { useStateContext } from "../context/StateContext";
@@ -48,7 +47,9 @@ const Cart = () => {
           <div className="cart-subtotal">
             <span className="heading">Cart subtotal </span>
             <span className="cart-num-items">({totalQuantities} items): </span>
-            <span className="cart-price">${(Math.round(totalPrice * 100) / 100).toFixed(2)}</span>
+            <span className="cart-price">
+              ${(Math.round(totalPrice * 100) / 100).toFixed(2)}
+            </span>
             <button
               type="button"
               className="cart-close"
@@ -113,7 +114,7 @@ const Cart = () => {
                         <span>{item.quantity}</span>
                         <i className="icon-dropdown"></i>
                       </span>
-                      
+
                       {toggleCartQuantity === index && (
                         <div className="dropdown">
                           <ul>
@@ -123,7 +124,9 @@ const Cart = () => {
                                 onClick={() =>
                                   toggleCartItemQuantity(item, index)
                                 }
-                                className={item.quantity === index ? "qty select" : "qty"}
+                                className={
+                                  item.quantity === index ? "qty select" : "qty"
+                                }
                               >
                                 {element}
                               </li>

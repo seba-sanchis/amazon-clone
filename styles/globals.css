@@ -265,7 +265,7 @@ span.text-red {
   margin-top: 24px;
 }
 .cart-heading .heading {
-  margin-left: 10px;
+  padding-left: 14px;
   color: #0f1111;
   font-size: 16px;
   line-height: 24px;
@@ -388,6 +388,10 @@ span.text-red {
   width: 400px;
   margin-bottom: 14px;
 }
+.btn-container .btn {
+  margin-left: 14px;
+}
+
 .btn {
   min-width: 236px;
   height: 40px;
