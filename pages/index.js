@@ -1,7 +1,7 @@
 import React from "react";
 
 import { client } from "../lib/client";
-import { FooterBanner, HeroBanner, Product } from "../components/index";
+import { HeroBanner, Product } from "../components/index";
 import banner from "@/sanity/schemas/banner";
 
 const Home = ({ products }) => {
@@ -13,7 +13,6 @@ const Home = ({ products }) => {
           <Product key={product._id} product={product} />
         ))}
       </div>
-      {/* <FooterBanner footerBanner={bannerData && bannerData[0]} /> */}
     </>
   );
 };
