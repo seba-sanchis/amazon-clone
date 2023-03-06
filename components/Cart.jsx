@@ -16,8 +16,8 @@ const Cart = () => {
     cartItems,
     setShowCart,
     toggleCartItemQuantity,
-    toggleSelectQuantity,
-    setToggleSelectQuantity,
+    toggleCartQuantity,
+    handleCartQuantity,
     quantityPerProduct,
   } = useStateContext();
 
@@ -48,7 +48,7 @@ const Cart = () => {
           <div className="cart-subtotal">
             <span className="heading">Cart subtotal </span>
             <span className="cart-num-items">({totalQuantities} items): </span>
-            <span className="cart-price">${totalPrice}</span>
+            <span className="cart-price">${(Math.round(totalPrice * 100) / 100).toFixed(2)}</span>
             <button
               type="button"
               className="cart-close"
@@ -105,14 +105,16 @@ const Cart = () => {
                   <div className="flex bottom">
                     <span>
                       <span
-                        onClick={() => setToggleSelectQuantity((state) => !state)}
+                        value={index}
+                        onClick={handleCartQuantity}
                         className="quantity-desc"
                       >
                         <span>Qty:</span>
                         <span>{item.quantity}</span>
                         <i className="icon-dropdown"></i>
                       </span>
-                      {toggleSelectQuantity && (
+                      
+                      {toggleCartQuantity === index && (
                         <div className="dropdown">
                           <ul>
                             {quantityPerProduct.map((element, index) => (

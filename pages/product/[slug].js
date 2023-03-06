@@ -15,11 +15,11 @@ const ProductDetails = ({ product, products }) => {
   const [index, setIndex] = useState(0);
   const {
     qty,
-    setQty,
     onAdd,
     setShowCart,
-    toggleSelectQuantity,
-    setToggleSelectQuantity,
+    toggleProductItemQuantity,
+    toggleProductQuantity,
+    setToggleProductQuantity,
     quantityPerProduct,
   } = useStateContext();
 
@@ -62,10 +62,10 @@ const ProductDetails = ({ product, products }) => {
               <AiFillStar />
               <AiOutlineStar />
             </div>
-            <span class="">15 customer reviews</span>
+            <span>15 customer reviews</span>
           </div>
 
-          <hr class="divider"></hr>
+          <hr className="divider"></hr>
 
           <div>
             <span className="product-tag">Price:</span>
@@ -74,20 +74,20 @@ const ProductDetails = ({ product, products }) => {
 
           <span>
             <span
-              onClick={() => setToggleSelectQuantity((state) => !state)}
+              onClick={() => setToggleProductQuantity((state) => !state)}
               className="quantity-desc space"
             >
               <span>Qty:</span>
               <span>{qty}</span>
               <i className="icon-dropdown"></i>
             </span>
-            {toggleSelectQuantity && (
+            {toggleProductQuantity && (
               <div className="dropdown">
                 <ul>
                   {quantityPerProduct.map((element, index) => (
                     <li
                       key={index}
-                      onClick={() => setQty(index)}
+                      onClick={() => toggleProductItemQuantity(index)}
                       className={qty === index ? "qty select" : "qty"}
                     >
                       {element}
@@ -111,14 +111,14 @@ const ProductDetails = ({ product, products }) => {
             </button>
           </div>
 
-          <hr class="divider"></hr>
+          <hr className="divider"></hr>
 
           <h1>Details</h1>
           <p>{details}</p>
         </div>
       </div>
 
-      <hr class="divider"></hr>
+      <hr className="divider"></hr>
 
       <div className="maylike-products-wrapper">
         <h2>Customers also search</h2>

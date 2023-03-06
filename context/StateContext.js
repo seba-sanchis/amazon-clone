@@ -4,7 +4,18 @@ import { toast } from "react-hot-toast";
 
 const Context = createContext();
 
-const quantityPerProduct = ["0 (Delete)", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const quantityPerProduct = [
+  "0 (Delete)",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+];
 
 export const StateContext = ({ children }) => {
   const [showCart, setShowCart] = useState(false);
@@ -12,7 +23,8 @@ export const StateContext = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
-  const [toggleSelectQuantity, setToggleSelectQuantity] = useState(false);
+  const [toggleCartQuantity, setToggleCartQuantity] = useState(false);
+  const [toggleProductQuantity, setToggleProductQuantity] = useState(false);
 
   let foundProduct;
   let index;
@@ -47,8 +59,7 @@ export const StateContext = ({ children }) => {
   };
 
   const toggleCartItemQuantity = (element, value) => {
-    
-    setToggleSelectQuantity(false);
+    setToggleCartQuantity(false);
 
     if (value > 0) {
       foundProduct = cartItems.find((item) => item._id === element._id);
@@ -64,17 +75,24 @@ export const StateContext = ({ children }) => {
         setTotalQuantities(
           (prevTotalQuantities) => prevTotalQuantities + toAdd
         );
-        setCartItems([
-          ...newCartItems,
-          { ...foundProduct, quantity: (foundProduct.quantity = value) },
-        ]);
+        setCartItems((prevCartItems) =>
+          prevCartItems.map((item) => {
+            if (item._id === element._id) {
+              return { ...item, quantity: (foundProduct.quantity = value) };
+            }
+            return item;
+          })
+        );
       } else if (foundProduct.quantity > value) {
         let toRemove = parseFloat(foundProduct.quantity - value);
-
-        setCartItems([
-          ...newCartItems,
-          { ...foundProduct, quantity: (foundProduct.quantity = value) },
-        ]);
+        setCartItems((prevCartItems) =>
+          prevCartItems.map((item) => {
+            if (item._id === element._id) {
+              return { ...item, quantity: (foundProduct.quantity = value) };
+            }
+            return item;
+          })
+        );
         setTotalPrice(
           (prevTotalPrice) => prevTotalPrice - foundProduct.price * toRemove
         );
@@ -97,6 +115,21 @@ export const StateContext = ({ children }) => {
     }
   };
 
+  const handleCartQuantity = (e) => {
+    let value = parseInt(e.currentTarget.getAttribute("value"));
+
+    if (toggleCartQuantity === false) {
+      setToggleCartQuantity(value);
+    } else {
+      setToggleCartQuantity(false);
+    }
+  };
+
+  const toggleProductItemQuantity = (value) => {
+    setToggleProductQuantity(false);
+    setQty(value);
+  };
+
   return (
     <Context.Provider
       value={{
@@ -112,9 +145,12 @@ export const StateContext = ({ children }) => {
         setCartItems,
         setTotalPrice,
         setTotalQuantities,
-        toggleSelectQuantity,
-        setToggleSelectQuantity,
+        toggleCartQuantity,
+        handleCartQuantity,
         quantityPerProduct,
+        toggleProductItemQuantity,
+        toggleProductQuantity,
+        setToggleProductQuantity,
       }}
     >
       {children}
