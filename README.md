@@ -1,38 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# E-commerce - trading of goods and services on the internet
 
-## Getting Started
+Features the ability to add and edit products on the go using Sanity and the integration with Stripe for checkout.
 
-First, run the development server:
+## Setups
+
+Before you start, you will need to create the <code>.env</code> file in the root folder to connect to Sanity and Stripe.
+
+Open the .env file and type the following variables:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+    NEXT_PUBLIC_SANITY_TOKEN = *add your Sanity token*
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = *add your Stripe publishable key*
+    NEXT_PUBLIC_STRIPE_SECRET_KEY = *add your Stripe secret key*
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Available Scripts
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Install packages and all dependencies.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```bash
+    npm i
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Runs the app in the development mode.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+    npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about this project, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js](https://nextjs.org/) - open-source web development framework providing React-based web applications with server-side rendering and static website generation.
+- [React](https://reactjs.org/) - open-source frontend JavaScript library for building user interfaces based on components.
+- [Sanity](https://www.sanity.io/) - headless CMS platform for structured content that lets you build better digital experiences.
+- [Stripe](https://stripe.com/) - offers payment-processing software and application programming interfaces for e-commerce websites and mobile applications.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Application hosted on AWS: https://e-commerce.sebastiansanchis.com/
