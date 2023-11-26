@@ -1,4 +1,4 @@
-# E-commerce - trading of goods and services
+# Amazon Clone - trading of goods and services
 
 Features the ability to add and edit products on the go using Sanity and the integration with Stripe for checkout.
 
